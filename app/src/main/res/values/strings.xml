@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Slatt</string>
+    <string name="join_millions_of_users_on_slatt_sharing_and_hanging_out_in_servers">Join millions of users on Slatt, sharing and hanging out in servers.</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
 </resources>
