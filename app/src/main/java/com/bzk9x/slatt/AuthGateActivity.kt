@@ -1,10 +1,12 @@
 package com.bzk9x.slatt
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,8 +28,9 @@ class AuthGateActivity : AppCompatActivity() {
             else -> false
         }
 
+        val slatt: ImageView = findViewById(R.id.slatt)
+
         if (isDarkMode) {
-            val slatt: ImageView = findViewById(R.id.slatt)
             val backgroundImage: ImageView = findViewById(R.id.backgroundImage)
             val colorMatrix = android.graphics.ColorMatrix(floatArrayOf(
                 -1f, 0f, 0f, 0f, 255f,
@@ -42,5 +45,15 @@ class AuthGateActivity : AppCompatActivity() {
         }
 
         val cardContainer = findViewById<ConstraintLayout>(R.id.cardContainer)
+
+        cardContainer.setOnClickListener {
+            val createAccountActivity = Intent(this, CreateAccountActivity::class.java)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                slatt,
+                "slatt"
+            )
+            startActivity(createAccountActivity, options.toBundle())
+        }
     }
 }
