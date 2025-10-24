@@ -6,7 +6,6 @@ import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -48,12 +47,7 @@ class AuthGateActivity : AppCompatActivity() {
 
         cardContainer.setOnClickListener {
             val createAccountActivity = Intent(this, CreateAccountActivity::class.java)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
-                slatt,
-                "slatt"
-            )
-            startActivity(createAccountActivity, options.toBundle())
+            startActivity(createAccountActivity)
         }
     }
 }
