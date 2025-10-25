@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.bzk9x.slatt" />
+                  <option name="mobileSdkAppId" value="1:765446092526:android:9476d8af55f2604c9925ff" />
+                  <option name="projectId" value="slattcloudservices" />
+                  <option name="projectNumber" value="765446092526" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
