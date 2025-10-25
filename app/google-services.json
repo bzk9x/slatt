@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "765446092526",
+    "firebase_url": "https://slattcloudservices-default-rtdb.firebaseio.com",
+    "project_id": "slattcloudservices",
+    "storage_bucket": "slattcloudservices.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765446092526:android:9476d8af55f2604c9925ff",
+        "android_client_info": {
+          "package_name": "com.bzk9x.slatt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd8Gxj7e3fvzFm-XAf-v-DS51-3mAEDYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

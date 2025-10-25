@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +28,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        FirebaseApp.initializeApp(this)
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
         Handler(Looper.getMainLooper()).postDelayed({
-            val authGateActivity = Intent(this, AuthGateActivity::class.java)
-            startActivity(authGateActivity)
+            if (currentUser != null) {
+                Toast.makeText(this, "No Home Activity", Toast.LENGTH_SHORT).show()
+            } else {
+                val authGateActivity = Intent(this, AuthGateActivity::class.java)
+                startActivity(authGateActivity)
+            }
             finish()
         }, 2000)
     }
