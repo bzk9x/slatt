@@ -3,8 +3,11 @@ package com.bzk9x.slatt
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -48,11 +51,13 @@ class CreateAccountActivity : AppCompatActivity() {
         val emailInput: EditText = findViewById(R.id.email_input)
         val passwordInput: EditText = findViewById(R.id.password_input)
         val createAccountButton: ConstraintLayout = findViewById(R.id.create_account_button)
+        val buttonText: TextView = findViewById(R.id.button_text)
+        val buttonProgress: ProgressBar = findViewById(R.id.button_progress)
 
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
 
-        createAccountButton.setOnClickListener {
+        createAccountButton.setOnClickListener { it ->
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
@@ -71,6 +76,11 @@ class CreateAccountActivity : AppCompatActivity() {
                 passwordInput.error = "Password must be 8+ characters with an uppercase letter, a digit, and a special character"
                 return@setOnClickListener
             }
+
+            it.isEnabled = false
+            it.setBackgroundResource(R.drawable.button_disabled)
+            buttonText.visibility = View.INVISIBLE
+            buttonProgress.visibility = View.VISIBLE
 
             // Create account
             auth.createUserWithEmailAndPassword(email, password)
@@ -102,7 +112,6 @@ class CreateAccountActivity : AppCompatActivity() {
                                 .set(userData)
                                 .addOnSuccessListener {
                                     Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                                    // Navigate to next screen or finish activity
                                     finish()
                                 }
                                 .addOnFailureListener { e ->
