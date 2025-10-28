@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bzk9x.slatt.utils.ErrorVibrationUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
@@ -57,6 +58,8 @@ class CreateAccountActivity : AppCompatActivity() {
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
 
+        val errorVibrationUtil = ErrorVibrationUtil(this)
+
         createAccountButton.setOnClickListener { it ->
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -68,12 +71,14 @@ class CreateAccountActivity : AppCompatActivity() {
             // Validate email
             if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 emailInput.error = "Enter a valid email address"
+                errorVibrationUtil.doubleVibrate()
                 return@setOnClickListener
             }
 
             // Validate password
             if (password.length < 8 || !password.any { it.isUpperCase() } || !password.any { it.isDigit() } || !password.any { !it.isLetterOrDigit() }) {
                 passwordInput.error = "Password must be 8+ characters with an uppercase letter, a digit, and a special character"
+                errorVibrationUtil.doubleVibrate()
                 return@setOnClickListener
             }
 
@@ -119,7 +124,12 @@ class CreateAccountActivity : AppCompatActivity() {
                                 }
                         }
                     } else {
+                        errorVibrationUtil.doubleVibrate()
                         Toast.makeText(this, "Account creation failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        it.isEnabled = true
+                        it.setBackgroundResource(R.drawable.button)
+                        buttonText.visibility = View.VISIBLE
+                        buttonProgress.visibility = View.INVISIBLE
                     }
                 }
         }
