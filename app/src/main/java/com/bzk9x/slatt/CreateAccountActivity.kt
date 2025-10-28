@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bzk9x.slatt.utils.ErrorVibrationUtil
+import com.bzk9x.slatt.utils.ShakeUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
@@ -72,6 +73,7 @@ class CreateAccountActivity : AppCompatActivity() {
             if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 emailInput.error = "Enter a valid email address"
                 errorVibrationUtil.doubleVibrate()
+                ShakeUtil.shake(emailInput)
                 return@setOnClickListener
             }
 
@@ -79,6 +81,7 @@ class CreateAccountActivity : AppCompatActivity() {
             if (password.length < 8 || !password.any { it.isUpperCase() } || !password.any { it.isDigit() } || !password.any { !it.isLetterOrDigit() }) {
                 passwordInput.error = "Password must be 8+ characters with an uppercase letter, a digit, and a special character"
                 errorVibrationUtil.doubleVibrate()
+                ShakeUtil.shake(passwordInput)
                 return@setOnClickListener
             }
 
