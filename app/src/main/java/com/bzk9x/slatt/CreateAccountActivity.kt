@@ -1,8 +1,11 @@
 package com.bzk9x.slatt
 
+import android.annotation.SuppressLint
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
 class CreateAccountActivity : AppCompatActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -55,11 +59,25 @@ class CreateAccountActivity : AppCompatActivity() {
         val createAccountButton: ConstraintLayout = findViewById(R.id.create_account_button)
         val buttonText: TextView = findViewById(R.id.button_text)
         val buttonProgress: ProgressBar = findViewById(R.id.button_progress)
+        val togglePasswordMode: TextView = findViewById(R.id.toggle_password_mode)
 
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
 
         val errorVibrationUtil = ErrorVibrationUtil(this)
+
+        var isPasswordVisible = false
+
+        togglePasswordMode.setOnClickListener {
+            if (isPasswordVisible) {
+                passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                togglePasswordMode.text = "Hide"
+            } else {
+                passwordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                togglePasswordMode.text = "Show"
+            }
+            isPasswordVisible = !isPasswordVisible
+        }
 
         createAccountButton.setOnClickListener { it ->
             val email = emailInput.text.toString().trim()
