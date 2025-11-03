@@ -1,11 +1,13 @@
 package com.bzk9x.slatt
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.TouchDelegate
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -60,6 +62,7 @@ class CreateAccountActivity : AppCompatActivity() {
         val buttonText: TextView = findViewById(R.id.button_text)
         val buttonProgress: ProgressBar = findViewById(R.id.button_progress)
         val togglePasswordMode: TextView = findViewById(R.id.toggle_password_mode)
+        val togglePasswordModeView = togglePasswordMode.parent as View
 
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
@@ -77,6 +80,19 @@ class CreateAccountActivity : AppCompatActivity() {
                 togglePasswordMode.text = "Show"
             }
             isPasswordVisible = !isPasswordVisible
+        }
+
+        togglePasswordModeView.post {
+            val rect = Rect()
+            togglePasswordMode.getHitRect(rect)
+
+            val extraPadding = 40
+            rect.top -= extraPadding
+            rect.bottom += extraPadding
+            rect.left -= extraPadding
+            rect.right += extraPadding
+
+            togglePasswordModeView.touchDelegate = TouchDelegate(rect, togglePasswordMode)
         }
 
         createAccountButton.setOnClickListener { it ->
