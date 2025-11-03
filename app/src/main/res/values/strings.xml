@@ -10,4 +10,8 @@
     <string name="a_very_strong_password">A very strong password</string>
     <string name="show">Show</string>
     <string name="create_a_username">Create a Username</string>
+    <string name="use_your_imagination_not_your_password">Use your imagination, not your password</string>
+    <string name="keep_it_short_keep_it_spicy">Keep it short, keep it spicy.</string>
+    <string name="your_username_is_your_first_impression_here_mysterious_funny_or_bold_it_s_up_to_you_just_remember_every_username_is_unique_so_make_yours_stand_out">Your username is your first impression here, mysterious, funny or bold, it\'s up to you. Just remember, every username is unique, so make yours stand out!</string>
+    <string name="create_username">Create Username</string>
 </resources>
