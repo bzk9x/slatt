@@ -9,4 +9,5 @@
     <string name="password">Password</string>
     <string name="a_very_strong_password">A very strong password</string>
     <string name="show">Show</string>
+    <string name="create_a_username">Create a Username</string>
 </resources>

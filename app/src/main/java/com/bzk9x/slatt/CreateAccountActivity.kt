@@ -1,6 +1,7 @@
 package com.bzk9x.slatt
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Rect
@@ -26,6 +27,7 @@ import com.bzk9x.slatt.utils.ShakeUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
+import androidx.core.content.edit
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -202,7 +204,13 @@ class CreateAccountActivity : AppCompatActivity() {
         db.collection("users").document(uid)
             .set(userData)
             .addOnSuccessListener {
-                Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                val sharedPrefs = getSharedPreferences("Slatt", MODE_PRIVATE)
+                sharedPrefs.edit {
+                    putBoolean("hasCreatedUsername", false)
+                }
+                val createUsernameActivity = Intent(this, CreateUsernameActivity::class.java)
+                createUsernameActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(createUsernameActivity)
                 finish()
             }
             .addOnFailureListener { e ->

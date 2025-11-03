@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -31,15 +30,22 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        val prefs = getSharedPreferences("Slatt", MODE_PRIVATE)
+        val hasCreatedUsername = prefs.getBoolean("hasCreatedUsername", false)
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (currentUser != null) {
-                Toast.makeText(this, "No Home Activity", Toast.LENGTH_SHORT).show()
+                if (hasCreatedUsername) {
+                    finish()
+                } else {
+                    val createAccountActivity = Intent(this, CreateUsernameActivity::class.java)
+                    startActivity(createAccountActivity)
+                }
             } else {
                 val authGateActivity = Intent(this, AuthGateActivity::class.java)
                 startActivity(authGateActivity)
             }
             finish()
-        }, 2000)
+        }, 1000)
     }
 }
