@@ -1,6 +1,7 @@
 package com.bzk9x.slatt
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
@@ -210,7 +211,12 @@ class CreateAccountActivity : AppCompatActivity() {
                 }
                 val createUsernameActivity = Intent(this, CreateUsernameActivity::class.java)
                 createUsernameActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(createUsernameActivity)
+                val animOptions = ActivityOptions.makeCustomAnimation(
+                    this,
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+                startActivity(createUsernameActivity, animOptions.toBundle())
                 finish()
             }
             .addOnFailureListener { e ->

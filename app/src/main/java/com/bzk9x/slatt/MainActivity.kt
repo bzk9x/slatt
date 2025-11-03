@@ -1,5 +1,6 @@
 package com.bzk9x.slatt
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -38,8 +39,13 @@ class MainActivity : AppCompatActivity() {
                 if (hasCreatedUsername) {
                     finish()
                 } else {
+                    val animOptions = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
                     val createAccountActivity = Intent(this, CreateUsernameActivity::class.java)
-                    startActivity(createAccountActivity)
+                    startActivity(createAccountActivity, animOptions.toBundle())
                 }
             } else {
                 val authGateActivity = Intent(this, AuthGateActivity::class.java)
